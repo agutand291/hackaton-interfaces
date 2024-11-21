@@ -5,7 +5,6 @@ const bcrypt=require("bcrypt")
 const jwt= require('jsonwebtoken')
 const path=require('path')
 
-
 //----------------------función para guardar los datos de usuario en la db-------------------
 async function create(req, res) {
     const parametros = req.body; // Obtenemos los datos enviados en el POST. AQUÍ NO HAY IMAGEN REQ BODY Y REQ FILE SE SPARAN AUTOMATICAMENTE
@@ -30,7 +29,6 @@ async function create(req, res) {
         });
     }
     
-
     if (req.fileValidationError === 'Error'){
         console.log(req.fileValidationError)
         return res.status(400).json({
@@ -68,12 +66,6 @@ async function create(req, res) {
         });
     }
 }
-
-
-
-
-
-
 
 ////-----------funcion para obtener token--------------------------
 async function start_session (req, res) {
@@ -156,7 +148,6 @@ function verificarToken(req, res, next) {
     
 }
 
-
 //----------------------función para borrar usuario de la db-------------------
 async function delete_One(req, res) {
     let name_persona_borrar = req.params.name;
@@ -189,23 +180,69 @@ async function delete_One(req, res) {
     }
 }
 
-
-
 //----------------------función para editar contraseña de la db-------------------
 async function changePassword(req,res){
-  
+    try{
+        const body= req.body
+        console.log(body)
+        const nombre_usuario=req.body.name_persona;
+        const new_password = req.body.new_password;
+        const persona = await Persona.findOne({ nombre_usuario: nombre_usuario });
+
+        console.log(persona)
+
+        if (!persona || !persona.password) {
+            return res.status(400).json({
+                status: "error",
+                mensaje: "No se ha encontrado la persona en la db",
+            });
+        }
+        else {
+            const is_corrrect= await bcrypt.compare(new_password, persona.password);
+            if(!is_corrrect) {
+                res.status(401).json({
+                    error: "Contraseña incorrecta",
+                })
+            } else {
+                Persona.updateOne(
+                    { nombre_usuario: nombre_usuario },
+                    { password: new_password}
+                )
+            }
+        }
+    }
+    catch(error)
+    {
+        console.error("Error:", error.message)
+    }
 
 }
-
 
 //----------Middlware para comparar contraseña-----------------------
 
 async function checkPassword(req,res, next){
   
+    const body= req.body
+    console.log(body)
+    const nombre_usuario=req.body.name_persona;
+    const new_password = req.body.new_password;
+    const persona = await Persona.findOne({ nombre_usuario: nombre_usuario });
 
+    if (!persona || !persona.password) {
+        return res.status(400).json({
+            status: "error",
+            mensaje: "No se ha encontrado la persona en la db",
+        });
+    } else {
+        const is_corrrect= await bcrypt.compare(new_password, persona.password);
+        if(!is_corrrect) {
+            res.status(401).json({
+                error: "Contraseña incorrecta",
+            })
+        }
+    }
+    next()
 }
-
-
 
 //----------------------función para obtener la foto de usuario de la db-------------------
 async function getphoto (req,res) {
@@ -242,9 +279,6 @@ async function getphoto (req,res) {
 
     }
 }
-
-
-
 
 module.exports={
     verificarToken,
