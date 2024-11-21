@@ -1,0 +1,105 @@
+
+/*Centramos formulario en la pagina*/
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 14px
+}
+
+a{
+    text-decoration: none;
+}
+
+#createForm{
+    width: 20vw;
+    padding: 1rem 1rem 1rem 1rem;
+    border: 0.1rem solid rgb(226, 226, 226);
+    
+}
+
+/*Ponemos label e input juntos*/
+.formulario_grupo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.6rem;
+}
+
+/*Centramos los placeholder de dentro de los inputs*/
+input::placeholder {
+    text-align: center;
+    color: #aaa;
+}
+
+/*Le damos ancho fijo a los label*/
+.formulario_grupo label {
+    margin-right: 0.6rem;
+    width: 8rem;
+}
+
+
+/*Le damos ancho de 100% a los inputs*/
+.formulario_grupo input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 0.1rem solid #ccc;
+}
+
+/*centramos los placeholder*/
+input::placeholder {
+    text-align: center;
+    color: #aaa;
+}
+
+
+.botones {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo para el primer botón */
+.botones button[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    width: 100%;
+    padding: 0.625rem;
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    margin-bottom: 1.25rem;
+}
+
+.botones a{
+    padding-bottom: 1rem;
+}
+
+/*linea que separa formulario de crear usuario*/
+.separator {
+    height: 0.1rem;
+    width: 100%;
+    background-color: #ccc;
+}
+
+/*Volver a iniciar_sesion*/
+.Inicio{
+    padding: 1rem 1rem 1rem 1rem;
+    width: 20vw;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 10vh;
+    border: 0.1rem solid rgb(226, 226, 226);
+    
+
+}
+
+a{
+    color: blue;
+}
