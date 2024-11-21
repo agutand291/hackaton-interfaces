@@ -1,8 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
-
-
 // Definir el esquema de Contactos
 const ContactosSchema = new Schema({
     nombre: {
@@ -74,11 +72,3 @@ model("Persona", ContactosSchema, "personas").createIndexes(); //Esto es para cr
 
 
 module.exports = model("Persona", ContactosSchema, "personas");
-
-
-
-
-
-
-
-
